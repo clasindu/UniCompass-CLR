@@ -1,0 +1,30 @@
+import axios from "axios";
+import { useAuthStore } from "../store/authStore";
+
+const apiClient = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8080/api",
+  headers: { "Content-Type": "application/json" },
+});
+
+// Attach the access token to every outgoing request
+apiClient.interceptors.request.use((config) => {
+  const token = useAuthStore.getState().accessToken;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+// On a 401, clear the session so ProtectedRoute bounces the user to /login.
+// (Day 6/7 hardening: add a silent refresh-and-retry here.)
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      useAuthStore.getState().clearAuth();
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default apiClient;

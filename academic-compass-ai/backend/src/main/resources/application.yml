@@ -1,0 +1,29 @@
+server:
+  port: 8080
+  error:
+    include-stacktrace: never
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/academic_compass}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:Sscl28@#$}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-me-in-prod-this-is-a-dev-only-secret-min-256-bits-long-please}
+    access-expiry-minutes: ${JWT_ACCESS_EXPIRY_MINUTES:15}
+    refresh-expiry-days: ${JWT_REFRESH_EXPIRY_DAYS:7}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
