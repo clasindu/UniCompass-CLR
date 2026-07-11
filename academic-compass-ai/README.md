@@ -1,4 +1,4 @@
-# Academic Compass AI
+# UNICompass-CLR
 
 AI-Powered Personal Student Success Companion.
 
