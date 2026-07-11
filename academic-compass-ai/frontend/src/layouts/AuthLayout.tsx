@@ -17,20 +17,19 @@ export default function AuthLayout({
         <div className="flex items-center gap-3 text-parchment">
           <CompassMark size={44} />
           <span className="font-display text-xl font-semibold tracking-tight">
-            Academic Compass
+            UniCompass CLR
           </span>
         </div>
         <div className="max-w-md">
           <h1 className="font-display text-5xl font-semibold leading-tight">
-            Find your bearing through every semester.
+            A Smarter Way to Navigate University Life.
           </h1>
           <p className="mt-5 text-lg text-parchment/70">
-            Track your GPA, plan your study time, and steer toward the career
-            you're aiming for — one compass for the whole journey.
+            An AI-Powered Student Success Companion for Academic Performance Improvement, Career Development, Mentorship Guidance, and Student Wellbeing Support
           </p>
         </div>
         <p className="text-sm text-parchment/40">
-          SLTC · HNDM · Student Success Companion
+          UniCompass CLR – AI-Powered Student Success Companion
         </p>
       </div>
 
@@ -39,7 +38,7 @@ export default function AuthLayout({
         <div className="mx-auto w-full max-w-sm">
           <div className="mb-8 flex items-center gap-2 text-ink lg:hidden">
             <CompassMark size={32} />
-            <span className="font-display text-lg font-semibold">Academic Compass</span>
+            <span className="font-display text-lg font-semibold">UniCompass CLR</span>
           </div>
           <h2 className="font-display text-3xl font-semibold text-ink">{title}</h2>
           <p className="mt-2 text-slate">{subtitle}</p>
