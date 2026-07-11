@@ -3,6 +3,9 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProfilePage from "./pages/ProfilePage";
+import AcademicPage from "./pages/AcademicPage";
+import AssignmentsPage from "./pages/AssignmentsPage";
+import ExamPlannerPage from "./pages/ExamPlannerPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useAuthStore } from "./store/authStore";
 
@@ -30,6 +33,30 @@ export default function App() {
         element={
           <ProtectedRoute>
             <ProfilePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/app/academic"
+        element={
+          <ProtectedRoute>
+            <AcademicPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/app/assignments"
+        element={
+          <ProtectedRoute>
+            <AssignmentsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/app/exams"
+        element={
+          <ProtectedRoute>
+            <ExamPlannerPage />
           </ProtectedRoute>
         }
       />

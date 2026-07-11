@@ -20,8 +20,8 @@ export default function DashboardPage() {
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {[
-            { title: "Academic", note: "GPA & grades — arriving Day 2" },
-            { title: "Assignments", note: "Deadline tracking — arriving Day 2" },
+            { title: "Academic", note: "Track your GPA and grades" },
+            { title: "Assignments", note: "Manage your deadlines" },
             { title: "AI Assistant", note: "Notes & flashcards — arriving Day 3" },
             { title: "Career", note: "Skill roadmap — arriving Day 4" },
           ].map((c) => (
