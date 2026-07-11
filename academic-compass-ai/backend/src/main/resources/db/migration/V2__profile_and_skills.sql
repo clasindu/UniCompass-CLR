@@ -33,7 +33,7 @@ CREATE TABLE student_skills (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     student_profile_id UUID NOT NULL REFERENCES student_profile(id) ON DELETE CASCADE,
     skill_id UUID NOT NULL REFERENCES skills(id) ON DELETE RESTRICT,
-    proficiency_level SMALLINT NOT NULL DEFAULT 1
+    proficiency_level INTEGER NOT NULL DEFAULT 1
         CHECK (proficiency_level BETWEEN 1 AND 5),
     CONSTRAINT uq_student_skill UNIQUE (student_profile_id, skill_id)
 );
