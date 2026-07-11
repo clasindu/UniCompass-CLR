@@ -24,13 +24,11 @@ export default function AuthLayout({
           <h1 className="font-display text-5xl font-semibold leading-tight">
             A Smarter Way to Navigate University Life.
           </h1>
-          <p className="mt-5 text-lg text-parchment/70">
-            An AI-Powered Student Success Companion for Academic Performance Improvement, Career Development, Mentorship Guidance, and Student Wellbeing Support
-          </p>
+          
         </div>
         <p className="text-sm text-parchment/40">
           UniCompass CLR – AI-Powered Student Success Companion
-        </p>
+         </p> 
       </div>
 
       {/* Right: the form */}
