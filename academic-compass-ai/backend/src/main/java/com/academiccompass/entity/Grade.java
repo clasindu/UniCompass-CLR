@@ -21,7 +21,8 @@ public class Grade {
     @Column(name = "assessment_type", nullable = false)
     private String assessmentType = "FINAL";
 
-    @Column(nullable = false)
+    // Marks are optional now — SLTC records letter grades directly.
+    @Column
     private BigDecimal marks;
 
     @Column(name = "letter_grade", nullable = false)
