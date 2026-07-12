@@ -9,6 +9,9 @@ import {
   getGpa,
 } from "../services/academicService";
 
+// SLTC grade set (best to worst). E is the failing grade; no D- or F.
+const SLTC_GRADES = ["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "E"];
+
 export default function AcademicPage() {
   const qc = useQueryClient();
   const { data: semesters = [], isLoading } = useQuery({
@@ -21,7 +24,7 @@ export default function AcademicPage() {
   const [activeSemester, setActiveSemester] = useState<string | null>(null);
   const [subjectName, setSubjectName] = useState("");
   const [creditHours, setCreditHours] = useState(3);
-  const [marksBySubject, setMarksBySubject] = useState<Record<string, string>>({});
+  const [gradeBySubject, setGradeBySubject] = useState<Record<string, string>>({});
 
   const refresh = () => {
     qc.invalidateQueries({ queryKey: ["semesters"] });
@@ -48,8 +51,8 @@ export default function AcademicPage() {
   });
 
   const addGrade = useMutation({
-    mutationFn: (vars: { subjectId: string; marks: number }) =>
-      recordGrade(vars.subjectId, { assessmentType: "FINAL", marks: vars.marks }),
+    mutationFn: (vars: { subjectId: string; letterGrade: string }) =>
+      recordGrade(vars.subjectId, { assessmentType: "FINAL", letterGrade: vars.letterGrade }),
     onSuccess: () => refresh(),
   });
 
@@ -101,7 +104,7 @@ export default function AcademicPage() {
             <input
               className="field-input"
               value={semesterName}
-              placeholder="e.g. Year 1 Semester 2"
+              placeholder="e.g. Level 4 Semester 1"
               onChange={(e) => setSemesterName(e.target.value)}
             />
           </div>
@@ -148,30 +151,33 @@ export default function AcademicPage() {
                         </span>
                         {latest && (
                           <span className="ml-2 text-sm font-semibold text-amber-deep">
-                            {latest.letterGrade} ({latest.marks}%)
+                            {latest.letterGrade} · {latest.gpaPoints.toFixed(2)} pts
                           </span>
                         )}
                       </div>
                       <div className="flex items-center gap-2">
-                        <input
-                          type="number"
-                          min={0}
-                          max={100}
-                          placeholder="Marks %"
+                        <select
                           className="w-24 rounded border border-ink/15 px-2 py-1 text-sm"
-                          value={marksBySubject[sub.id] ?? ""}
+                          value={gradeBySubject[sub.id] ?? ""}
                           onChange={(e) =>
-                            setMarksBySubject((m) => ({ ...m, [sub.id]: e.target.value }))
+                            setGradeBySubject((m) => ({ ...m, [sub.id]: e.target.value }))
                           }
-                        />
+                        >
+                          <option value="">Grade…</option>
+                          {SLTC_GRADES.map((g) => (
+                            <option key={g} value={g}>
+                              {g}
+                            </option>
+                          ))}
+                        </select>
                         <button
                           className="btn-ghost py-1 text-sm"
                           onClick={() => {
-                            const val = Number(marksBySubject[sub.id]);
-                            if (!isNaN(val)) addGrade.mutate({ subjectId: sub.id, marks: val });
+                            const g = gradeBySubject[sub.id];
+                            if (g) addGrade.mutate({ subjectId: sub.id, letterGrade: g });
                           }}
                         >
-                          Save mark
+                          Save grade
                         </button>
                       </div>
                     </div>
@@ -187,7 +193,7 @@ export default function AcademicPage() {
                     <input
                       className="field-input"
                       value={subjectName}
-                      placeholder="e.g. Database Systems"
+                      placeholder="e.g. Data Warehousing"
                       onChange={(e) => setSubjectName(e.target.value)}
                     />
                   </div>

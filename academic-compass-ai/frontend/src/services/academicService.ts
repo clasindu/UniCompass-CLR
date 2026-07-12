@@ -26,7 +26,7 @@ export async function createSubject(payload: {
 
 export async function recordGrade(
   subjectId: string,
-  payload: { assessmentType: string; marks: number }
+  payload: { assessmentType: string; letterGrade: string }
 ): Promise<GradeResponse> {
   const { data } = await apiClient.post<GradeResponse>(`/subjects/${subjectId}/grades`, payload);
   return data;

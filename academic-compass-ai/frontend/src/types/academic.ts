@@ -4,7 +4,6 @@ export interface GradeResponse {
   id: string;
   subjectId: string;
   assessmentType: string;
-  marks: number;
   letterGrade: string;
   gpaPoints: number;
 }
