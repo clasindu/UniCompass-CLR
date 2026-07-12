@@ -4,16 +4,43 @@ import CompassMark from "../components/CompassMark";
 import { useAuthStore } from "../store/authStore";
 import { logout as logoutApi } from "../services/authService";
 
-const navItems = [
-  { to: "/app/dashboard", label: "Dashboard" },
-  { to: "/app/academic", label: "Academic" },
-  { to: "/app/assignments", label: "Assignments" },
-  { to: "/app/exams", label: "Exams" },
-  { to: "/app/ai", label: "AI Assistant" },
-  { to: "/app/advisor", label: "Advisor" },
-  { to: "/app/career", label: "Career" },
-  { to: "/app/timetable", label: "Timetable" },
-  { to: "/app/profile", label: "Profile" },
+type NavItem = { to: string; label: string };
+type NavGroup = { section: string | null; items: NavItem[] };
+
+const NAV_GROUPS: NavGroup[] = [
+  {
+    section: null,
+    items: [{ to: "/app/dashboard", label: "Dashboard" }],
+  },
+  {
+    section: "Academic",
+    items: [
+      { to: "/app/academic", label: "Academic" },
+      { to: "/app/assignments", label: "Assignments" },
+      { to: "/app/exams", label: "Exams" },
+    ],
+  },
+  {
+    section: "AI Tools",
+    items: [
+      { to: "/app/ai", label: "AI Assistant" },
+      { to: "/app/advisor", label: "Advisor" },
+      { to: "/app/career", label: "Career" },
+      { to: "/app/timetable", label: "Timetable" },
+    ],
+  },
+  {
+    section: "Support",
+    items: [
+      { to: "/app/wellness", label: "Wellness" },
+      { to: "/app/mentors", label: "Mentors" },
+      { to: "/app/bookings", label: "My Bookings" },
+    ],
+  },
+  {
+    section: "Account",
+    items: [{ to: "/app/profile", label: "Profile" }],
+  },
 ];
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
@@ -35,25 +62,38 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <aside className="flex w-64 flex-col border-r border-ink/10 bg-white">
         <div className="flex items-center gap-2.5 border-b border-ink/10 px-6 py-5 text-ink">
           <CompassMark size={32} />
-          <span className="font-display text-lg font-semibold">Compass</span>
+          <span className="font-display text-lg font-semibold">UniCompass-CLR</span>
         </div>
-        <nav className="flex-1 space-y-1 px-3 py-5">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-ink text-parchment"
-                    : "text-ink-soft hover:bg-parchment-dim"
-                }`
-              }
-            >
-              {item.label}
-            </NavLink>
+
+        <nav className="flex-1 space-y-4 overflow-y-auto px-3 py-5">
+          {NAV_GROUPS.map((group, gi) => (
+            <div key={gi}>
+              {group.section && (
+                <p className="mb-1 px-3 text-xs font-semibold uppercase tracking-wide text-slate/70">
+                  {group.section}
+                </p>
+              )}
+              <div className="space-y-0.5">
+                {group.items.map((item) => (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    className={({ isActive }) =>
+                      `block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                        isActive
+                          ? "bg-ink text-parchment"
+                          : "text-ink-soft hover:bg-parchment-dim"
+                      }`
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
+
         <div className="border-t border-ink/10 px-4 py-4">
           <p className="truncate text-xs text-slate">{user?.email}</p>
           <button

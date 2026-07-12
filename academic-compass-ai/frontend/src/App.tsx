@@ -10,6 +10,9 @@ import AiAssistantPage from "./pages/AiAssistantPage";
 import AcademicAdvisorPage from "./pages/AcademicAdvisorPage";
 import CareerPage from "./pages/CareerPage";
 import TimetablePage from "./pages/TimetablePage";
+import WellnessPage from "./pages/WellnessPage";
+import MyBookingsPage from "./pages/MyBookingsPage";
+import MentorPage from "./pages/MentorPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useAuthStore } from "./store/authStore";
 
@@ -83,6 +86,18 @@ export default function App() {
       <Route
         path="/app/timetable"
         element={<ProtectedRoute><TimetablePage /></ProtectedRoute>}
+      />
+      <Route
+        path="/app/wellness"
+        element={<ProtectedRoute><WellnessPage /></ProtectedRoute>}
+      />
+      <Route
+        path="/app/mentors"
+        element={<ProtectedRoute><MentorPage /></ProtectedRoute>}
+      />
+      <Route
+        path="/app/bookings"
+        element={<ProtectedRoute><MyBookingsPage /></ProtectedRoute>}
       />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
