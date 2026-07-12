@@ -22,8 +22,8 @@ export default function DashboardPage() {
           {[
             { title: "Academic", note: "Track your GPA and grades" },
             { title: "Assignments", note: "Manage your deadlines" },
-            { title: "AI Assistant", note: "Notes & flashcards — arriving Day 3" },
-            { title: "Career", note: "Skill roadmap — arriving Day 4" },
+            { title: "AI Assistant", note: "Notes & flashcards" },
+            { title: "Career", note: "Skill roadmap" },
           ].map((c) => (
             <div
               key={c.title}

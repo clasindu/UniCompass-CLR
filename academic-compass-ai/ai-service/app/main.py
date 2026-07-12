@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 load_dotenv()
 
 from app.routers.notes_router import router as notes_router  # noqa: E402
+from app.routers.advisor_router import router as advisor_router  # noqa: E402
 
 app = FastAPI(title="Academic Compass AI Service")
 
@@ -19,6 +20,7 @@ app.add_middleware(
 )
 
 app.include_router(notes_router)
+app.include_router(advisor_router)
 
 
 @app.get("/health")

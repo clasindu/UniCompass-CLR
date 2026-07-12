@@ -10,6 +10,9 @@ const navItems = [
   { to: "/app/assignments", label: "Assignments" },
   { to: "/app/exams", label: "Exams" },
   { to: "/app/ai", label: "AI Assistant" },
+  { to: "/app/advisor", label: "Advisor" },
+  { to: "/app/career", label: "Career" },
+  { to: "/app/timetable", label: "Timetable" },
   { to: "/app/profile", label: "Profile" },
 ];
 

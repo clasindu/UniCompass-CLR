@@ -28,7 +28,7 @@ def generate_json(system_prompt: str, user_prompt: str) -> dict:
 
     def _call(extra: str = "") -> str:
         resp = client.models.generate_content(
-            model="",
+            model="gemini-flash-latest",
             contents=user_prompt + extra,
             config=types.GenerateContentConfig(
                 system_instruction=system_prompt,

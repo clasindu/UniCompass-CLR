@@ -1,4 +1,4 @@
-// Day 2 types — Academic, Assignment, Exam
+// Day 2 types — Academic, Assignment, Exam (exam now has time + venue)
 
 export interface GradeResponse {
   id: string;
@@ -45,6 +45,8 @@ export interface ExamResponse {
   title: string;
   subjectId: string | null;
   examDate: string;
+  examTime: string | null;
+  venue: string | null;
   examType: "MIDTERM" | "FINAL" | "QUIZ";
   preparationStatus: "NOT_STARTED" | "IN_PROGRESS" | "READY";
   daysRemaining: number;

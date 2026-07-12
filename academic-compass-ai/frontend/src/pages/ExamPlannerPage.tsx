@@ -10,22 +10,46 @@ const PREP_LABEL: Record<string, string> = {
   READY: "Ready",
 };
 
+// Format "09:00" or "09:00:00" -> "9:00 AM"
+function fmtTime(t: string | null): string {
+  if (!t) return "";
+  const parts = t.split(":");
+  if (parts.length < 2) return t;
+  let h = parseInt(parts[0], 10);
+  const m = parts[1];
+  if (isNaN(h)) return t;
+  const ampm = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  return `${h}:${m} ${ampm}`;
+}
+
 export default function ExamPlannerPage() {
   const qc = useQueryClient();
   const { data: exams = [], isLoading } = useQuery({ queryKey: ["exams"], queryFn: getExams });
 
   const [title, setTitle] = useState("");
   const [examDate, setExamDate] = useState("");
+  const [examTime, setExamTime] = useState("");
+  const [venue, setVenue] = useState("");
   const [examType, setExamType] = useState("FINAL");
 
   const refresh = () => qc.invalidateQueries({ queryKey: ["exams"] });
 
   const add = useMutation({
     mutationFn: () =>
-      createExam({ title, subjectId: null, examDate, examType }),
+      createExam({
+        title,
+        subjectId: null,
+        examDate,
+        examTime: examTime || null,
+        venue: venue || null,
+        examType,
+      }),
     onSuccess: () => {
       setTitle("");
       setExamDate("");
+      setExamTime("");
+      setVenue("");
       setExamType("FINAL");
       refresh();
     },
@@ -78,6 +102,15 @@ export default function ExamPlannerPage() {
             />
           </div>
           <div>
+            <label className="field-label">Time</label>
+            <input
+              type="time"
+              className="field-input"
+              value={examTime}
+              onChange={(e) => setExamTime(e.target.value)}
+            />
+          </div>
+          <div>
             <label className="field-label">Type</label>
             <select
               className="field-input"
@@ -88,6 +121,15 @@ export default function ExamPlannerPage() {
               <option value="FINAL">Final</option>
               <option value="QUIZ">Quiz</option>
             </select>
+          </div>
+          <div className="flex-1 min-w-[160px]">
+            <label className="field-label">Venue / room</label>
+            <input
+              className="field-input"
+              value={venue}
+              placeholder="e.g. Hall A / Lab 3"
+              onChange={(e) => setVenue(e.target.value)}
+            />
           </div>
           <button type="submit" className="btn-primary" disabled={add.isPending}>
             Add exam
@@ -112,13 +154,18 @@ export default function ExamPlannerPage() {
                   </span>
                 </div>
                 <p className="mt-0.5 text-sm text-slate">
-                  {new Date(ex.examDate).toLocaleDateString()} ·{" "}
+                  {new Date(ex.examDate).toLocaleDateString()}
+                  {ex.examTime ? ` · ${fmtTime(ex.examTime)}` : ""}
+                  {" · "}
                   <span className={ex.daysRemaining <= 7 ? "font-semibold text-red-600" : ""}>
                     {ex.daysRemaining >= 0
                       ? `${ex.daysRemaining} days remaining`
                       : "past"}
                   </span>
                 </p>
+                {ex.venue && (
+                  <p className="mt-0.5 text-sm text-slate">📍 {ex.venue}</p>
+                )}
               </div>
               <div className="flex items-center gap-2">
                 <select

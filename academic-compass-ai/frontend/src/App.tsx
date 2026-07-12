@@ -6,9 +6,12 @@ import ProfilePage from "./pages/ProfilePage";
 import AcademicPage from "./pages/AcademicPage";
 import AssignmentsPage from "./pages/AssignmentsPage";
 import ExamPlannerPage from "./pages/ExamPlannerPage";
+import AiAssistantPage from "./pages/AiAssistantPage";
+import AcademicAdvisorPage from "./pages/AcademicAdvisorPage";
+import CareerPage from "./pages/CareerPage";
+import TimetablePage from "./pages/TimetablePage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useAuthStore } from "./store/authStore";
-import AiAssistantPage from "./pages/AiAssistantPage";
 
 export default function App() {
   const token = useAuthStore((s) => s.accessToken);
@@ -54,6 +57,14 @@ export default function App() {
         }
       />
       <Route
+        path="/app/exams"
+        element={
+          <ProtectedRoute>
+            <ExamPlannerPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
         path="/app/ai"
         element={
           <ProtectedRoute>
@@ -62,12 +73,16 @@ export default function App() {
         }
       />
       <Route
-        path="/app/exams"
-        element={
-          <ProtectedRoute>
-            <ExamPlannerPage />
-          </ProtectedRoute>
-        }
+        path="/app/advisor"
+        element={<ProtectedRoute><AcademicAdvisorPage /></ProtectedRoute>}
+      />
+      <Route
+        path="/app/career"
+        element={<ProtectedRoute><CareerPage /></ProtectedRoute>}
+      />
+      <Route
+        path="/app/timetable"
+        element={<ProtectedRoute><TimetablePage /></ProtectedRoute>}
       />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

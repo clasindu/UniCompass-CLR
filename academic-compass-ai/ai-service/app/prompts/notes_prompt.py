@@ -5,7 +5,7 @@ Return your answer as STRICT JSON matching exactly this structure (no markdown, 
 no code fences, no extra text before or after):
 
 {
-  "summary": "A clear 150-250 word summary of the key concepts in the material.",
+  "summary": "A structured study note covering the entire material (see summary rules below).",
   "flashcards": [
     { "question": "...", "answer": "..." }
   ],
@@ -23,7 +23,23 @@ no code fences, no extra text before or after):
   ]
 }
 
-Rules:
+Summary rules:
+- Read the ENTIRE material before writing the summary, not just the first section.
+- Organize the summary by topic. For each main topic, list its subtopics.
+- For each subtopic, give a short explanation (2-4 sentences) AND at least one \
+concrete example illustrating it, if an example is present or can be reasonably \
+derived from the material.
+- Structure it clearly using plain text with line breaks, using this pattern:
+  Topic: <name>
+    - <Subtopic>: <explanation> Example: <example>
+    - <Subtopic>: <explanation> Example: <example>
+  (repeat for each topic/subtopic)
+- After covering all topics and subtopics, end with a final section titled \
+"Summary:" containing a concise 100-150 word overview that ties the key concepts together.
+- Do not use markdown symbols like #, *, or ** — use plain text with line breaks \
+and indentation only, since this will be displayed as plain text.
+
+Other rules:
 - Generate exactly 10 flashcards and 20 MCQs.
 - Each MCQ must have exactly 4 options with exactly ONE correct.
 - Base everything ONLY on the provided material. Do not invent facts not present.

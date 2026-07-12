@@ -91,7 +91,7 @@ export default function AiAssistantPage() {
 
             <div className="mt-5">
               {tab === "summary" && (
-                <div className="rounded-lg border border-ink/10 bg-white p-5 leading-relaxed text-ink-soft">
+                <div className="rounded-lg border border-ink/10 bg-white p-5 leading-relaxed text-ink-soft whitespace-pre-wrap">
                   {result.assets.summary}
                 </div>
               )}
