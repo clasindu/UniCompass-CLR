@@ -6,6 +6,7 @@ import ProfilePage from "./pages/ProfilePage";
 import AcademicPage from "./pages/AcademicPage";
 import AssignmentsPage from "./pages/AssignmentsPage";
 import ExamPlannerPage from "./pages/ExamPlannerPage";
+import AiAssistantPage from "./pages/AiAssistantPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useAuthStore } from "./store/authStore";
 
@@ -57,6 +58,14 @@ export default function App() {
         element={
           <ProtectedRoute>
             <ExamPlannerPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/app/ai"
+        element={
+          <ProtectedRoute>
+            <AiAssistantPage />
           </ProtectedRoute>
         }
       />

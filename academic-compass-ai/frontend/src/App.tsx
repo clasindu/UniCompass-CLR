@@ -8,6 +8,7 @@ import AssignmentsPage from "./pages/AssignmentsPage";
 import ExamPlannerPage from "./pages/ExamPlannerPage";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useAuthStore } from "./store/authStore";
+import AiAssistantPage from "./pages/AiAssistantPage";
 
 export default function App() {
   const token = useAuthStore((s) => s.accessToken);
@@ -49,6 +50,14 @@ export default function App() {
         element={
           <ProtectedRoute>
             <AssignmentsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/app/ai"
+        element={
+          <ProtectedRoute>
+            <AiAssistantPage />
           </ProtectedRoute>
         }
       />
