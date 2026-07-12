@@ -69,13 +69,17 @@ public class AcademicService {
     @Transactional
     public GradeResponse recordGrade(UUID userId, UUID subjectId, GradeRequest req) {
         Subject subject = loadOwnedSubject(userId, subjectId);
-        String letter = gradeScale.toLetter(req.marks());
+
+        String letter = req.letterGrade().trim().toUpperCase();
+        if (!gradeScale.isValid(letter)) {
+            throw new ResourceNotFoundException("Invalid grade '" + letter
+                    + "'. Valid grades: " + String.join(", ", GradeScale.VALID_GRADES));
+        }
         BigDecimal points = gradeScale.toGpaPoints(letter);
 
         Grade g = new Grade();
         g.setSubjectId(subject.getId());
         g.setAssessmentType(req.assessmentType() == null ? "FINAL" : req.assessmentType());
-        g.setMarks(BigDecimal.valueOf(req.marks()));
         g.setLetterGrade(letter);
         g.setGpaPoints(points);
         Grade saved = gradeRepository.save(g);
@@ -140,6 +144,6 @@ public class AcademicService {
     private GradeResponse toGradeResponse(Grade g) {
         return new GradeResponse(
                 g.getId(), g.getSubjectId(), g.getAssessmentType(),
-                g.getMarks().doubleValue(), g.getLetterGrade(), g.getGpaPoints().doubleValue());
+                g.getLetterGrade(), g.getGpaPoints().doubleValue());
     }
 }
