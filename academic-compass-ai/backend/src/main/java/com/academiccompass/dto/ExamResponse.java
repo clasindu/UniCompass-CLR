@@ -1,6 +1,7 @@
 package com.academiccompass.dto;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.UUID;
 
 public record ExamResponse(
@@ -8,6 +9,8 @@ public record ExamResponse(
         String title,
         UUID subjectId,
         LocalDate examDate,
+        LocalTime examTime,
+        String venue,
         String examType,
         String preparationStatus,
         long daysRemaining

@@ -30,6 +30,8 @@ public class ExamService {
         e.setTitle(req.title());
         e.setSubjectId(req.subjectId());
         e.setExamDate(req.examDate());
+        e.setExamTime(req.examTime());
+        e.setVenue(req.venue());
         e.setExamType(req.examType() == null ? "FINAL" : req.examType());
         e.setPreparationStatus("NOT_STARTED");
         return toResponse(examRepository.save(e));
@@ -46,6 +48,8 @@ public class ExamService {
         Exam e = loadOwned(userId, id);
         if (req.title() != null) e.setTitle(req.title());
         if (req.examDate() != null) e.setExamDate(req.examDate());
+        if (req.examTime() != null) e.setExamTime(req.examTime());
+        if (req.venue() != null) e.setVenue(req.venue());
         if (req.examType() != null) e.setExamType(req.examType());
         if (req.preparationStatus() != null) e.setPreparationStatus(req.preparationStatus());
         return toResponse(examRepository.save(e));
@@ -67,6 +71,7 @@ public class ExamService {
         long days = ChronoUnit.DAYS.between(LocalDate.now(), e.getExamDate());
         return new ExamResponse(
                 e.getId(), e.getTitle(), e.getSubjectId(), e.getExamDate(),
-                e.getExamType(), e.getPreparationStatus(), days);
+                e.getExamTime(), e.getVenue(), e.getExamType(),
+                e.getPreparationStatus(), days);
     }
 }
