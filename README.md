@@ -14,8 +14,6 @@ study tools and a wellbeing/mentorship booking system. Built with grading logic 
 - JWT authentication (register, login, refresh, logout) with BCrypt password hashing
 - Student profile with skills and career goal
 - Semester / subject / grade management with automatic GPA calculation
-- SLTC letter-grade scale (A+ to E) with correct pass/repeat rules
-  (C- and above = pass; D+, D, E = repeat)
 - Assignment tracker (kanban-style) with priority and difficulty
 - Exam planner with date, time, and venue
 
@@ -54,13 +52,13 @@ study tools and a wellbeing/mentorship booking system. Built with grading logic 
 
 ```
 ┌─────────────┐     ┌──────────────────┐     ┌──────────────┐
-│  React SPA  │────▶│  Spring Boot API │────▶│  PostgreSQL  │
+│  React SPA  │──▶  |  Spring Boot API │───▶│  PostgreSQL  │
 │  (Vite)     │     │  (auth, academic,│     │              │
 │  :5173      │     │   bookings) :8081│     │              │
 └──────┬──────┘     └──────────────────┘     └──────────────┘
        │
        │            ┌──────────────────┐     ┌──────────────┐
-       └───────────▶│  FastAPI AI svc  │────▶│ Google Gemini│
+       └──────────▶│  FastAPI AI svc  │────▶│ Google Gemini│
                     │  (PDF, advisor,  │     │              │
                     │  career) :8000   │     │              │
                     └──────────────────┘     └──────────────┘
